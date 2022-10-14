@@ -16,3 +16,12 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: scpTestFile.txt
+          remote: scpTestFileMoved.txt
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          port: ${{ secrets.PORT }}
+          privateKey: ${{ secrets.SSH_KEY }}
