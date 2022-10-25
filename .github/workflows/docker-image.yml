@@ -15,16 +15,16 @@ jobs:
       run: docker build . --file Dockerfile --tag dockertest:test1
     - name: Save the image
       run: docker save dockertest > image.tar
-    - name: Copy single file to remote
-      uses: garygrossgarten/github-action-scp@release
-      with:
-        local: image.tar
-        remote: image.tar
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        port: ${{ secrets.PORT }}
-        privateKey: ${{ secrets.SSH_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
+#    - name: Copy single file to remote
+#      uses: garygrossgarten/github-action-scp@release
+#      with:
+#        local: image.tar
+#        remote: image.tar
+#        host: ${{ secrets.HOST }}
+#        username: ${{ secrets.USER }}
+#        port: ${{ secrets.PORT }}
+#        privateKey: ${{ secrets.SSH_KEY }}
+#        passphrase: ${{ secrets.PASSPHRASE }}
 
 #    - uses: jitterbit/get-changed-files@v1
 #    - name: Image Builder
@@ -55,4 +55,6 @@ jobs:
       run: |
         for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
           echo "$file was changed"
+          docker build . --file $file --tag new_file
+          docker save new_file > new_image.tar
         done
