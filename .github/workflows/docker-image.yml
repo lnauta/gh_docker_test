@@ -25,9 +25,9 @@ jobs:
         port: ${{ secrets.PORT }}
         privateKey: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+    - uses: jitterbit/get-changed-files@v1
     - name: Image Builder
       id: files
-      uses: jitterbit/get-changed-files@v1
       run: |
         for changed_file in ${{ steps.files.outputs.all }}; do
           echo "Do something with this ${changed_file}."
