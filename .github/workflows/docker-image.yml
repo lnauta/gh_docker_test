@@ -25,7 +25,7 @@ jobs:
         port: ${{ secrets.PORT }}
         privateKey: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-  build-images:
+  build:
     - name: Image Builder
       runs-on: ubuntu-latest
       - id: files
